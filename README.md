@@ -17,6 +17,7 @@ This project is made so all the elements are displayed correctly on popular scre
 **Images**  
   <img width="190" height="190" alt="image" src="https://github.com/user-attachments/assets/8c890b73-bd3c-4daa-9588-f5ccb6fe1cc8" />
   <img width="190" height="190" alt="image" src="https://github.com/user-attachments/assets/37f7959d-2314-48d0-80ad-9a7a631c6bdc" />
+  
 
 
 The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
