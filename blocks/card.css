@@ -11,6 +11,16 @@
   justify-content: space-between;
 }
 
+.card__title {
+  font-family: poppins, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-style: medium;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: 0;
+  color: #212121;
+}
+
 .card__like-btn {
   background-image: url(../images/spots-images/heart.svg);
   width: 23px;

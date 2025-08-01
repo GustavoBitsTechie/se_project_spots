@@ -9,16 +9,16 @@
 
 .cards__list {
   list-style-type: none;
-  padding: 0;
+  padding: 1px;
   margin: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 413px);
+  grid-template-columns: repeat(3, 413px);
   gap: 20px 40px;
   justify-content: center;
 }
 
 @media screen and (max-width: 627px) {
   .cards__list {
-  grid-template-columns: repeat (auto-fit, 288px);
+    grid-template-columns: repeat(auto-fit, 288px);
   }
 }
