@@ -26,12 +26,12 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   max-width: 420px;
-  font-family: poppins, Arial, Helvetica, sans-serif;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
 }
 
 .profile__description {
   margin: 0;
-  font-family: Poppins, Arial, Helvetica, sans-serif;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
   color: #212121;
   display: -webkit-box;
   overflow: hidden;
@@ -43,26 +43,24 @@
 
 .profile__edit-btn {
   margin-top: auto;
-  width: 84px;
-  height: 16px;
-  font-family: Poppins, Arial, Helvetica, sans-serif;
+  min-content: 107px;
+  height: 24px;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
   font-weight: 500;
   font-style: medium;
   font-size: 16px;
   line-height: 100%;
   background-color: #fcf5e5;
   color: #212121;
-  border: hidden;
   position: relative;
   bottom: 20px;
-  min-content: 84px;
 }
 
 .profile__add-btn {
   margin-left: auto;
-  width:fixed (149px);
-  height:hug (52px;)
-  font-family: Poppins, Arial, Helvetica, sans-serif;
+  width:fixed 149px;
+  height: 52px;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
   font-weight: 500;
   font-style: medium;
   font-size: 16px;
