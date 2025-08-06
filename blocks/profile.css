@@ -114,14 +114,21 @@
     font-size: 16px;
     max-width: 288px;
     justify-content: center;
+    gap: 20px;
+    bottom-padding: 1px;
   }
 
   .profile__edit-btn {
-    margin: 20px;
+    margin: 0 0 32px;
     width: 107px;
+    height: 16px;
+    margin-bottom: 40px;
     display: flex;
     align-content: center;
     flex-grow: horizontal;
+    border-radius: 90px;
+    gap: 8px;
+    width: fit-content;
   }
 
   .profile__add-btn {
