@@ -1,4 +1,5 @@
 .modal {
+  visibility: hidden;
   background-color: #00000080;
   position: fixed;
   top: 0;
@@ -9,7 +10,6 @@
   align-items: center;
   justify-content: center;
   padding: 10px;
-  visibility: hidden;;
 }
 
 .modal__is-opened {
