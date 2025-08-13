@@ -18,7 +18,6 @@
 
 .modal__container {
   max-width: 730px;
-  height: 408px;
   width: 100%;
   border-radius: 8px;
   background-color: #fff;
@@ -54,6 +53,8 @@
   margin: 0 0 32px;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   font-size: 16px;
+  color: #212121;
+  opacity: 70%;
 }
 
 .modal__input {
@@ -79,6 +80,7 @@
   max-width: 156px;
   height: 52px;
   border-radius: 8px;
+  border: 0;
   padding: 18px 32px;
   gap: 8px;
   background-color: #212121;
