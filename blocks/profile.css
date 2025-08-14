@@ -26,6 +26,7 @@
   text-overflow: ellipsis;
   max-width: 420px;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
+  color: #000
 }
 
 .profile__description {
@@ -116,7 +117,7 @@
     max-width: 288px;
     justify-content: center;
     gap: 20px;
-    bottom-padding: 1px;
+    padding-bottom: 1px;
   }
 
   .profile__edit-btn {

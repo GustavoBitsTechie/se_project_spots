@@ -10,10 +10,15 @@
   align-items: center;
   justify-content: center;
   padding: 10px;
+  opacity: 0;
+  transition: opacity 0.5s linear, visibility 0.5s linear;
 }
+
 
 .modal__is-opened {
   visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s linear, visibility 0.5s linear;
 }
 
 .modal__container {
@@ -35,6 +40,7 @@
   background: url(../images/spots-images/xbutton.svg);
   color: #212121;
   border: 2px;
+  transition: opacity 0.5s linear;
 }
 
 .modal__title {
