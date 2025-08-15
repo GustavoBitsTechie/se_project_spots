@@ -71,12 +71,11 @@ const initialCards = [
     editProfileModal.classList.remove("modal__is-opened");
   }
 
-  function newPostFormSubmit(evt) {
+  function handleAddCardSubmit(evt) {
     evt.preventDefault();
 
-      newPostImageInput.value = newPostImageEl.value;
-      newPostDescriptionInput.value = newPostDescriptionInput.value;
-
+     newPostImageInput.textContent = newPostImageEl.value;
+     newPostDescriptionInput.textContent = newPostDescriptionInput.value;
 
     newPostModal.classList.remove("modal__is-opened");
   }
