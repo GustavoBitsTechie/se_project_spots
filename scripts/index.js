@@ -36,9 +36,10 @@ const initialCards = [
   const newPostImageInput = newPostModal.querySelector("#card-image-input");
   const newPostDescriptionInput = newPostModal.querySelector("#caption-input");
 
+
   const profileNameEl = document.querySelector(".profile__name");
   const profileDescriptionEl = document.querySelector(".profile__description");
-  const newPostImageEl = document.querySelector(".new-post__image");
+  const newPostImageEl = document.querySelector(".modal__input");
 
 
 
@@ -73,9 +74,9 @@ const initialCards = [
   function newPostFormSubmit(evt) {
     evt.preventDefault();
 
+      newPostImageInput.value = newPostImageEl.value;
+      newPostDescriptionInput.value = newPostDescriptionInput.value;
 
-    newPostFormEl = newPostImageInput.value;
-    newPostImageEl = newPostDescriptionInput.value;
 
     newPostModal.classList.remove("modal__is-opened");
   }
