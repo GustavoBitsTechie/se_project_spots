@@ -81,7 +81,7 @@ const initialCards = [
   }
 
   editProfileFormEl.addEventListener("submit", handleProfileFormSubmit);
-  newPostFormEl.addEventListener("submit", newPostFormSubmit);
+  newPostFormEl.addEventListener("submit", handleAddCardSubmit);
 
   initialCards.forEach(function (card) {
     console.log(card.name);
