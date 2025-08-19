@@ -41,25 +41,29 @@ const initialCards = [
   const profileDescriptionEl = document.querySelector(".profile__description");
   const newPostImageEl = document.querySelector(".modal__input");
 
-
-
+  function openModal(modal) {
+    modal.classList.add("modal__is-opened");
+  }
+  function closeModal(modal) {
+    modal.classList.remove("modal__is-opened");
+  }
 
   editProfileBtn.addEventListener("click", function () {
-    editProfileModal.classList.add("modal__is-opened");
+    openModal(editProfileModal);
     editProfileNameInput.value = profileNameEl.textContent;
     editProfileDescriptionInput.value = profileDescriptionEl.textContent;
   });
 
   editProfileCloseBtn.addEventListener("click", function () {
-    editProfileModal.classList.remove("modal__is-opened");
+    closeModal(editProfileModal);
   });
 
   newPostBtn.addEventListener("click", function () {
-    newPostModal.classList.add("modal__is-opened");
+    openModal(newPostModal);
   });
 
   newPostCloseBtn.addEventListener("click", function () {
-    newPostModal.classList.remove("modal__is-opened");
+    closeModal(newPostModal);
   });
 
   function handleProfileFormSubmit(evt) {
