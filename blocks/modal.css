@@ -13,12 +13,18 @@
   opacity: 0;
   transition: opacity 0.5s linear, visibility 0.5s linear;
 }
-
+ .modal_type_preview {
+  padding: 0 16px;
+ }
 
 .modal__is-opened {
   visibility: visible;
   opacity: 1;
   transition: opacity 0.5s linear, visibility 0.5s linear;
+}
+
+.modal__is-closed {
+  visibility: hidden;
 }
 
 .modal__container {
@@ -31,6 +37,7 @@
   gap: 32px;
 }
 
+
 .modal__close-btn {
   position:absolute;
   top: 32px;
@@ -41,6 +48,17 @@
   color: #212121;
   border: 2px;
   transition: opacity 0.5s linear;
+  cursor: pointer;
+}
+
+.modal__close-btn:hover {
+  opacity: 40%;
+}
+
+.modal__close_type_preview {
+  top: 0;
+  right: -52.5px;
+  background-image: url(../images/spots-images/whiteXButton.svg);
 }
 
 .modal__title {
@@ -70,15 +88,16 @@
   padding: 16px 12px;
   border-radius: 8px;
   gap: 10px;
-  color: #21212140;
+  color: #212121;
   width: 100%;
   font-size: 20px;
   border: 1px solid;
   max-width: 700px;
+  cursor: pointer;
 }
 
 .modal__input::placeholder {
-  color: #2121214d;
+  color: #21212140;
   font-size: 20px;
 }
 
@@ -94,7 +113,33 @@
   font-family: "Poppins", Arial, Helvetica, sans-serif;
 }
 
-@media screen and (max-width: 627px) {
+.modal__image-container {
+  position: relative;
+}
+
+.modal__image {
+  max-width: 80vw;
+  max-height: 80vh;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
+}
+
+.modal__caption {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  color: white;
+  background-color: #212121;
+  height: 24px;
+  width: auto;
+  border-radius: 8px;
+  padding: 8px 4px;
+  font-size: 20px;
+  display: inline-block;
+}
+
+
+
+@media screen and (max-width: 480px) {
   .modal__container {
     padding: auto;
     width: 300px;
@@ -121,4 +166,17 @@
     max-width: none;
     font-size: 16px;
   }
+
+  .modal__close-btn {
+    top: -48px;
+    right: 0px;
   }
+  }
+
+  @media screen and (max-width: 627px) {
+.modal__close_type_preview {
+  top: -48px;
+  right: 0px;
+}
+
+}

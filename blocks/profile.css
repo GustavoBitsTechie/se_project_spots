@@ -59,6 +59,12 @@
 
 }
 
+.profile__edit-btn:hover {
+   opacity: 1;
+   opacity: 70%;
+  cursor: pointer;
+}
+
 .profile__add-btn {
   margin-left: auto;
   width: auto;
@@ -79,6 +85,13 @@
   padding: 18px 32px 18px 32px;
   border: 0;
   border-radius: 8px;
+}
+
+.profile__add-btn:hover {
+  opacity: 1;
+  background-color: #212121;
+  opacity: 80%;
+  cursor: pointer;
 }
 
 .profile__add-btn img {
