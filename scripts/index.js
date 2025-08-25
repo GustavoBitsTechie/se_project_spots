@@ -65,6 +65,8 @@ const initialCards = [
   cardImageEl.alt = data.name;
   cardTitleEl.textContent = data.name;
 
+  
+
   const cardLikeBtnEl = cardElement.querySelector(".card__like-btn");
   cardLikeBtnEl.addEventListener("click", () => {
     cardLikeBtnEl.classList.toggle("card__like-btn_active");
@@ -109,41 +111,34 @@ const initialCards = [
     closeModal(newPostModal);
   });
 
-  editProfileBtn.addEventListener("click", function () {
-    openModal(editProfileModal);
-    editProfileNameInput.value = profileNameEl.textContent;
-    editProfileDescriptionInput.value = profileDescriptionEl.textContent;
+editProfileBtn.addEventListener("click", function () {
+  openModal(editProfileModal);
+  editProfileNameInput.value = profileNameEl.textContent;
+  editProfileDescriptionInput.value = profileDescriptionEl.textContent;
+});
 
+editProfileFormEl.addEventListener("submit", function (evt) {
+  evt.preventDefault();
 
+  profileNameEl.textContent = editProfileNameInput.value;
+  profileDescriptionEl.textContent = editProfileDescriptionInput.value;
 
-  editProfileFormEl.addEventListener("submit", function (evt) {
-    evt.preventDefault();
-
-    profileNameEl.textContent = editProfileNameInput.value;
-    profileDescriptionEl.textContent = editProfileDescriptionInput.value;
-
-    editProfileModal.classList.remove("modal__is-opened");
-  });
+  closeModal(editProfileModal);
+});
 
 newPostFormEl.addEventListener("submit", function (evt) {
   evt.preventDefault();
-      const inputValues = {
-      name: newPostDescriptionInput.value,
-      link: newPostImageInput.value,
-      };
 
-    const cardElement = getCardElement(inputValues);
-    cardsList.prepend(cardElement);
+  const inputValues = {
+    name: newPostDescriptionInput.value,
+    link: newPostImageInput.value
+  };
 
-    closeModal(newPostModal);
-    newPostFormEl.reset();
-  });
-
-    const cardElement = getCardElement(cardData);
+  const cardElement = getCardElement(inputValues);
   cardsList.prepend(cardElement);
 
   closeModal(newPostModal);
-  addCardFormEl.reset();
+  newPostFormEl.reset();
 });
 
 
