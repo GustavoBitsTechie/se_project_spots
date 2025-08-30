@@ -17,6 +17,7 @@ const hideInputError = (formElement, inputElement, settings) => {
   const errorMsgEl = formElement.querySelector(`#${inputElement.id}-error`);
   errorMsgEl.textContent = '';
     inputElement.classList.remove(settings.inputErrorClass);
+    errorMsgEl.classList.add(settings.errorClass);
 };
 
 const checkInputValidity = (formElement, inputElement, settings) => {
@@ -56,8 +57,8 @@ function resetValidation(formElement, settings) {
 }
 
 function setEventListeners(formElement, settings) {
-    const inputList = Array.from(formElement.querySelectorAll('.modal__input'));
-    const buttonElement = formElement.querySelector(".modal__submit-btn");
+    const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
+    const buttonElement = formElement.querySelector(settings.submitButtonSelector);
 
     toggleButtonState(inputList, buttonElement, settings);
 

@@ -75,7 +75,6 @@ const initialCards = [
   const cardDeleteBtnEl = cardElement.querySelector(".card__delete-btn");
   cardDeleteBtnEl.addEventListener("click", () => {
     cardElement.remove();
-    cardElement = null;
   });
 
   cardImageEl.addEventListener("click", function ()  {
@@ -92,29 +91,34 @@ const initialCards = [
   return cardElement;
 }
 
-  function openModal(modal) {
-    modal.classList.add("modal__is-opened");
+function handleOverlayClick(event) {
+  if (event.target.classList.contains('modal')) {
+    closeModal(event.target);
   }
-  function closeModal(modal) {
-    modal.classList.remove("modal__is-opened");
-  }
+}
 
-  document.addEventListener('keydown', function(event) {
-  if (event.key === 'Escape') {
-    const openedModal = document.querySelector('.modal__is-opened');
+  function handleEscape(event) {
+  if (event.key === "Escape") {
+    const openedModal = document.querySelector(".modal__is-opened");
     if (openedModal) {
       closeModal(openedModal);
     }
   }
-});
+}
 
-document.querySelectorAll('.modal').forEach(modal => {
-  modal.addEventListener('mousedown', function(event) {
-    if (event.target === modal) {
-      closeModal(modal);
-    }
-  });
-});
+  function openModal(modal) {
+    modal.classList.add("modal__is-opened");
+    modal.addEventListener('mousedown', handleOverlayClick);
+    document.addEventListener('keydown', handleEscape);
+  }
+  function closeModal(modal) {
+    modal.classList.remove("modal__is-opened");
+    modal.removeEventListener('mousedown', handleOverlayClick);
+    document.removeEventListener('keydown', handleEscape);
+  }
+
+
+
 
   editProfileCloseBtn.addEventListener("click", function () {
     closeModal(editProfileModal);

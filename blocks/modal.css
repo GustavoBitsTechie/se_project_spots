@@ -56,11 +56,13 @@
  opacity: 1;
 }
 
-.modal__close_type_preview {
+.modal__close-btn_type_preview {
   top: 0;
   right: -52.5px;
   background-image: url(../images/spots-images/whiteXButton.svg);
 }
+
+
 
 .modal__title {
   margin: 0 0 32px;
