@@ -7,17 +7,18 @@ export const settings = {
   errorClass: "modal__error",
 };
 
-function showInputError(formElement, inputElement, errorMsg, settings) {
-    const errorMsgEl = formElement.querySelector(`#${inputElement.id}-error`);
-    errorMsgEl.textContent = errorMsg;
-    inputElement.classList.add(settings.inputErrorClass);
+export function showInputError(formElement, inputElement, errorMsg, settings) {
+  const errorMsgEl = formElement.querySelector(`#${inputElement.id}-error`);
+  errorMsgEl.textContent = errorMsg;
+  inputElement.classList.add(settings.inputErrorClass);
+  errorMsgEl.classList.add(settings.errorClass);
 }
 
-const hideInputError = (formElement, inputElement, settings) => {
+export function hideInputError(formElement, inputElement, settings) {
   const errorMsgEl = formElement.querySelector(`#${inputElement.id}-error`);
   errorMsgEl.textContent = '';
-    inputElement.classList.remove(settings.inputErrorClass);
-    errorMsgEl.classList.add(settings.errorClass);
+  inputElement.classList.remove(settings.inputErrorClass);
+  errorMsgEl.classList.remove(settings.errorClass);
 };
 
 const checkInputValidity = (formElement, inputElement, settings) => {
@@ -47,7 +48,7 @@ function disableButton(buttonElement, settings) {
     buttonElement.classList.add(settings.inactiveButtonClass);
 }
 
-function resetValidation(formElement, settings) {
+export function resetValidation(formElement, settings) {
     const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
     const buttonElement = formElement.querySelector(settings.submitButtonSelector);
     inputList.forEach(inputElement => {

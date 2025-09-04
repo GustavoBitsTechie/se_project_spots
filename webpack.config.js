@@ -65,13 +65,3 @@ module.exports = {
     }),
   ],
 };
-
-import { resetValidation, hideInputError, showInputError } from "../utils/validation.js";
-
-// Use imported functions directly in your listeners:
-const form = document.querySelector(".my-form");
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  resetValidation(form);
-  
-});

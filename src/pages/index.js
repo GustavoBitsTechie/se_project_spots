@@ -1,6 +1,7 @@
-import { enableValidation, settings } from "../scripts/validation.js"; 
+import { enableValidation, settings, showInputError } from "../scripts/validation.js"; 
 import "./index.css";
 import logo from '../images/spots-images/logo.svg';
+import { resetValidation, hideInputError } from "../scripts/validation.js";
 
 const headerLogoEl = document.querySelector('.header__logo');
 if (headerLogoEl) headerLogoEl.src = logo;
@@ -49,7 +50,7 @@ function createCard(cardData) {
   cardImage.alt = cardData.name;
   cardTitle.textContent = cardData.name;
 
-  // keep id (if provided) so delete can call API with it
+  
   if (cardData.id) cardElement.dataset.id = cardData.id;
   else if (cardData._id) cardElement.dataset.id = cardData._id;
 
@@ -132,7 +133,6 @@ editProfileFormEl.addEventListener("submit", function (evt) {
   profileDescriptionEl.textContent = editProfileDescriptionInput.value;
 
   editProfileFormEl.reset();
-  resetValidation(editProfileFormEl, settings);
   closeModal(editProfileModal);
 });
 
@@ -149,47 +149,8 @@ newPostFormEl.addEventListener("submit", function (evt) {
 
   closeModal(newPostModal);
   newPostFormEl.reset();
-  resetValidation(newPostFormEl, settings);
 });
 
-
-function resetValidation(formElement, settings ) {
-  const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
-  const buttonElement = formElement.querySelector(settings.submitButtonSelector);
-
-  inputList.forEach(inputElement => {
-    hideInputError(formElement, inputElement, settings);
-  });
-
-  toggleButtonState(inputList, buttonElement, settings); 
-}
-
-function hasInvalidInput(inputList) {
-  return inputList.some((input) => !input.validity.valid);
-}
-
-function toggleButtonState(inputList, buttonElement, settings) {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(settings.inactiveButtonClass);
-    buttonElement.disabled = true;
-  } else {
-    buttonElement.classList.remove(settings.inactiveButtonClass);
-    buttonElement.disabled = false;
-  }
-}
-
-
-export function showInputError(formElement, inputElement, errorMessage) {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.add("input-error");
-  if (errorElement) errorElement.textContent = errorMessage;
-}
-
-export function hideInputError(formElement, inputElement) {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.remove("input-error");
-  if (errorElement) errorElement.textContent = "";
-}
 
 enableValidation(settings);
 
@@ -211,6 +172,21 @@ document.addEventListener("click", (e) => {
     api.deleteCard(cardId).catch((err) => console.error("deleteCard failed:", err));
   }
 });
+
+
+const form = document.querySelector(".my-form");
+if (form) {
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    resetValidation(form);
+  });
+}
+
+const config = {
+  entry: {
+    main: "./se_project_spots-1/src/pages/index.js",
+  },
+};
 
 
 
