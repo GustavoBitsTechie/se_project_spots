@@ -5,6 +5,12 @@
   font-style: medium;
   font-size: 12px;
   line-height: 120%;
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;    
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .cards__list {
