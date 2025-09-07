@@ -1,7 +1,15 @@
-import { enableValidation, settings, showInputError } from "../scripts/validation.js"; 
+import { enableValidation, settings, showInputError, resetValidation, hideInputError } from "../scripts/validation.js";
 import "./index.css";
 import logo from '../images/spots-images/logo.svg';
-import { resetValidation, hideInputError } from "../scripts/validation.js";
+import Api from "../utils/Api.js";
+import "../blocks/page.css";
+import "../blocks/profile.css";
+import "../blocks/cards.css";
+import "../blocks/modal.css";
+import "../blocks/content.css";
+import "../blocks/card.css";
+import "../blocks/footer.css";
+import "../blocks/header.css";
 
 const headerLogoEl = document.querySelector('.header__logo');
 if (headerLogoEl) headerLogoEl.src = logo;
@@ -41,6 +49,24 @@ const initialCards = [
 const cardsList = document.querySelector('.cards__list');
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
 
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "e53975c1-e30c-4bde-9f80-52b9fa34cc90",
+    "Content-Type": "application/json"
+  }
+});
+
+api.getAppInfo().then(([userData, cards]) => {
+  cards.forEach(cardData => {
+    const cardEl = createCard(cardData);
+    cardsList.append(cardEl); 
+  });
+  profileNameEl.textContent = userData.name;
+  profileDescriptionEl.textContent = userData.about;
+});
+
+
 function createCard(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector('.card__image');
@@ -50,16 +76,13 @@ function createCard(cardData) {
   cardImage.alt = cardData.name;
   cardTitle.textContent = cardData.name;
 
-  
   if (cardData.id) cardElement.dataset.id = cardData.id;
   else if (cardData._id) cardElement.dataset.id = cardData._id;
+
 
   return cardElement;
 }
 
-initialCards.forEach(cardData => {
-  cardsList.append(createCard(cardData));
-});
 
 
 const editProfileBtn = document.querySelector(".profile__edit-btn");
@@ -79,6 +102,20 @@ const newPostDescriptionInput = newPostModal.querySelector("#caption-input");
 const profileNameEl = document.querySelector(".profile__name");
 const profileDescriptionEl = document.querySelector(".profile__description");
 
+const editAvatarBtn = document.querySelector(".profile__avatar-edit-btn");
+const editAvatarModal = document.querySelector("#edit-avatar-modal");
+
+function openModal(modal) {
+  modal.classList.add("modal__is-opened");
+}
+
+editAvatarBtn.addEventListener("click", function () {
+  openModal(editAvatarModal);
+});
+
+editAvatarCloseBtn.addEventListener("click", function () {
+  closeModal(editAvatarModal);
+});
 
 function handleOverlayClick(event) {
   if (event.target.classList.contains('modal')) {
@@ -95,11 +132,6 @@ function handleEscape(event) {
   }
 }
 
-function openModal(modal) {
-  modal.classList.add("modal__is-opened");
-  modal.addEventListener('mousedown', handleOverlayClick);
-  document.addEventListener('keydown', handleEscape);
-}
 
 function closeModal(modal) {
   modal.classList.remove("modal__is-opened");
@@ -111,7 +143,6 @@ function closeModal(modal) {
 editProfileCloseBtn.addEventListener("click", function () {
   closeModal(editProfileModal);
 });
-
 newPostBtn.addEventListener("click", function () {
   openModal(newPostModal);
 });
@@ -126,15 +157,6 @@ editProfileBtn.addEventListener("click", function () {
   editProfileDescriptionInput.value = profileDescriptionEl.textContent;
 });
 
-editProfileFormEl.addEventListener("submit", function (evt) {
-  evt.preventDefault();
-
-  profileNameEl.textContent = editProfileNameInput.value;
-  profileDescriptionEl.textContent = editProfileDescriptionInput.value;
-
-  editProfileFormEl.reset();
-  closeModal(editProfileModal);
-});
 
 newPostFormEl.addEventListener("submit", function (evt) {
   evt.preventDefault();
@@ -182,11 +204,95 @@ if (form) {
   });
 }
 
-const config = {
-  entry: {
-    main: "./se_project_spots-1/src/pages/index.js",
-  },
-};
+editProfileFormEl.addEventListener("submit", function (evt) {
+  evt.preventDefault();
+
+  const name = editProfileNameInput.value;
+  const about = editProfileDescriptionInput.value;
+
+  api.editUserInfo({ name, about })
+    .then((userData) => {
+      profileNameEl.textContent = userData.name;
+      profileDescriptionEl.textContent = userData.about;
+      closeModal(editProfileModal);
+      editProfileFormEl.reset();
+    })
+    .catch((err) => {
+      console.error("editUserInfo failed:", err);
+    });
+});
 
 
+function handleAvatarSubmit(event) {
+  event.preventDefault();
+  const avatarLink = avatarInput.value;
+  console.log(avatarInput.value);
+  api.editAvatarInfo(avatarLink)
+    .then((userData) => {
+      console.log(data.avatar);
+      profileAvatarEl.src = userData.avatar;
+      closeModal(editAvatarModal);
+      editAvatarFormEl.reset();
+    })
+    .catch((err) => {
+      console.error("editAvatarInfo failed:", err);
+    });
+}
+editAvatarBtn.addEventListener("click", function () {
+  openModal(editAvatarModal);
+});
+editAvatarCloseBtn.addEventListener("click", function () {
+  closeModal(editAvatarModal);
+});
 
+editAvatarFormEl.addEventListener("submit", function (evt) {
+  evt.preventDefault();
+
+  const avatarLink = avatarInput.value;
+
+  api.editAvatar(avatarLink)
+    .then((userData) => {
+      profileAvatarEl.src = userData.avatar;
+      closeModal(editAvatarModal);
+      editAvatarFormEl.reset();
+    })
+    .catch((err) => {
+      console.error("editAvatar failed:", err);
+    });
+});
+
+function editAvatarInfo({avatar}) {
+  return fetch(`${api._baseUrl}/users/me/avatar`, {
+    method: "PATCH",
+    headers: api._headers,
+    body: JSON.stringify({
+     avatar,
+    }),
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);  
+  });
+}
+
+// Safe, non‑redeclaring handlers to open/close the Edit Avatar modal
+document.querySelector(".profile__avatar-edit-btn")?.addEventListener("click", () => {
+  document.querySelector("#edit-avatar-modal")?.classList.add("modal__is-opened");
+});
+
+document.querySelector("#edit-avatar-modal .modal__close-btn")?.addEventListener("click", () => {
+  document.querySelector("#edit-avatar-modal")?.classList.remove("modal__is-opened");
+});
+
+// Close when clicking the overlay (modal background)
+document.querySelector("#edit-avatar-modal")?.addEventListener("mousedown", (evt) => {
+  if (evt.target === evt.currentTarget) evt.currentTarget.classList.remove("modal__is-opened");
+});
+
+
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
+    document.querySelector("#edit-avatar-modal.modal__is-opened")?.classList.remove("modal__is-opened");
+  }
+});
