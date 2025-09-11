@@ -34,6 +34,34 @@ class Api {
     }).then(this._handleServerResponse);
   }
 
+  createCard({ name, link }) {
+    return fetch(`${this.baseUrl}/cards`, {
+      method: "POST",
+      headers: this.headers,
+      body: JSON.stringify({ name, link })
+    }).then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
+  }
+
+  deleteCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: this.headers
+    }).then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
+  }
+
+  addLike(cardId) {
+    return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+      method: "PUT",
+      headers: this.headers
+    }).then(this._handleServerResponse);
+  }
+  removeLike(cardId) {
+    return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+      method: "DELETE",
+      headers: this.headers
+    }).then(this._handleServerResponse);
+  }
+
   _handleServerResponse(res) {
     if (res.ok) return res.json();
     return Promise.reject(`Error: ${res.status}`);

@@ -8,12 +8,22 @@
 .card__image {
   height: 413px;
   width: 100%;
-  object-fit: cover;
+  /* if you use a div with background-image, ensure cover */
+  background-size: cover;
+  background-position: center;
+  object-fit: cover; /* works for <img> */
+  display: block;
   border-radius: 8px;
-  margin-bottom: 12px; 
-  margin-left: 140px;
+  cursor: pointer; /* make it clear it's interactive */
 }
 
+/* if .card__image contains an <img> */
+.card__image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
 
 .card__content {
   display: flex;
@@ -49,31 +59,33 @@
 
 .card__like-btn {
   background-image: url(../images/spots-images/heart.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
   width: 23px;
   height: 20px;
   border: none;
   background-color: transparent;
-  opacity: 40%;
+  opacity: 0.4; /* 40% */
   cursor: pointer;
 }
 
-
-.card__like-btn:hover {
-  opacity: 1;
-
-}
-
-.card__like-btn_active:hover {
-  opacity: 0.4;
-  background-image: url(../images/spots-images/LikedHover.svg);
-}
-
-.card__like-btn_active {
+/* make active state selector specific to avoid being overridden */
+.card__like-btn.card__like-btn_active {
   background-image: url(../images/spots-images/Liked.svg);
   opacity: 1;
 }
 
+/* hover behavior for active state */
+.card__like-btn.card__like-btn_active:hover {
+  opacity: 0.4;
+  background-image: url(../images/spots-images/LikedHover.svg);
+}
 
+/* keep normal hover for non-active */
+.card__like-btn:hover {
+  opacity: 1;
+}
 
 @media screen and (max-width: 627px) {
   .card {

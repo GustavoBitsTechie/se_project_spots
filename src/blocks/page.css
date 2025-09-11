@@ -1,15 +1,45 @@
 .page {
-  background-color: #FCF5E5;
   min-height: 100vh;
-  padding: 20px;
-  box-sizing: border-box;
-  gap: 32px;
-  max-width: 2280px;
-}
-
-.page__section {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  justify-content: flex-start;
+}
+
+main {
+  flex: 1;
+}
+
+/* Make sections a positioning context so we can place the button */
+.page__section {
+  display: flex;
+  position: relative; /* added */
+}
+
+/* Place the Add Post button at bottom-right of the section */
+.profile__add-post-container {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+}
+
+/* Ensure the button keeps its intended size/style */
+.profile__add-post-container .profile__add-btn {
+  height: 52px;
+  padding: 12px 20px;
+  border-radius: 8px;
+}
+
+/* On small screens, restore normal flow so it doesn't overlap content */
+@media screen and (max-width: 627px) {
+  .page__section {
+    position: static;
+    flex-direction: column;
+  }
+  .profile__add-post-container {
+    position: static;
+    margin-top: 16px;
+    align-self: center;
+  }
 }

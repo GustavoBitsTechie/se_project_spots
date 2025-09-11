@@ -1,6 +1,33 @@
 {
+  "name": "se-project-spots-p1",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "webpack serve --config webpack.config.js --mode development --open",
+    "build": "webpack --config webpack.config.js --mode production",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
   "devDependencies": {
-    "webpack-cli": "^6.0.1",
+    "@babel/core": "^7.28.4",
+    "@babel/preset-env": "^7.28.3",
+    "assert": "^2.1.0",
+    "babel-loader": "^10.0.0",
+    "buffer": "^6.0.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^13.0.1",
+    "crypto-browserify": "^3.12.1",
+    "css-loader": "^7.1.2",
+    "html-loader": "^5.1.0",
+    "html-webpack-plugin": "^5.6.4",
+    "mini-css-extract-plugin": "^2.9.4",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "postcss-loader": "^8.2.0",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0",
+    "style-loader": "^4.0.0",
+    "util": "^0.12.5",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^5.0.0",
     "webpack-dev-server": "^5.2.2"
   }
 }

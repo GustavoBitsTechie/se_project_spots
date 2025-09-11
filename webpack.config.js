@@ -2,6 +2,8 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -16,12 +18,13 @@ module.exports = {
   devtool: "inline-source-map",
   stats: "errors-only",
   devServer: {
-    static: path.resolve(__dirname, "./dist"),
-    compress: true,
-    port: 8080,
-    open: true,
-    liveReload: true,
-    hot: false,
+    static: {
+      directory: path.join(__dirname, 'src'), // serve src files (so /index.css resolves)
+      publicPath: '/',
+      watch: true
+    },
+    hot: true,
+    historyApiFallback: true,
   },
   target: ["web", "es5"],
   module: {
@@ -49,19 +52,46 @@ module.exports = {
         type: "asset/resource",
       },
       {
-        test: /\.html$/,
-        use: ["html-loader"],
-      },
+        test: /\.html$/i,
+        loader: 'html-loader',
+        options: { sources: false } // adjust if you need to process <img src> etc.
+      }
     ],
+  },
+  resolve: {
+    fallback: {
+      path: require.resolve('path-browserify'),
+      process: require.resolve('process/browser'),
+      assert: require.resolve('assert/'),
+      util: require.resolve('util/'),
+      stream: require.resolve('stream-browserify'),
+      buffer: require.resolve('buffer/'),
+      os: require.resolve('os-browserify/browser'),
+      crypto: require.resolve('crypto-browserify'),
+      fs: false,
+      child_process: false,
+      net: false,
+      tls: false
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
+      template: './src/index.html',
       favicon: "./src/favicon.ico",
+      inject: true, // <-- change from false to true
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: "main.css",
     }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+      Buffer: ['buffer', 'Buffer']
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: path.resolve(__dirname, 'src/images'), to: 'images' } // copies src/images -> dist/images
+      ]
+    })
   ],
 };
